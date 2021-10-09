@@ -52,19 +52,26 @@ routerr.post('/getFavNews',async(req,res)=>{
 
 routerr.post('/deleteFavNews',async(req,res)=>{
     var docId = req.body.docId;
-    var deleteDoc =  favNewsModel.remove({
-        _id:req.body.docId,
-    },
-    (err)=>{
-        if (!err) {
-            res.send = 'Remove from fav list';
-    }
-    else {
-            res.send = 'error';
-    }
-    }
-    )
-    res.send(deleteDoc)
+    /*try{*/
+        var deleteDoc = favNewsModel.findByIdAndDelete({
+            _id:req.body.docId,
+        }/*,
+        (err)=>{
+            if (!err) {
+                res.send = 'Remove from fav list';
+            }
+        else {
+                res.send = 'error';
+            }
+        }*/
+        ).then((result)=>{
+            if(result!=null) res.send('Removed from favourite.')
+            // res.send({"result":result})
+        }).catch((err)=>{
+            if(err) throw err;
+        })
+        
+    /*}catch(e){throw e;}*/
 })
 
 module.exports = routerr
