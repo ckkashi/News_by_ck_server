@@ -35,7 +35,22 @@ routerr.post('/getUserInfo',async(req,res)=>{
     res.send(userData)
 })
 
-
+routerr.put('/updateUserInfo',async(req,res)=>{
+    var find = await infoModel.findOneAndUpdate(
+        {
+            userId:req.body.userId,
+        },
+        {
+            username:req.body.username,
+            userAddress:req.body.userAddress,
+            userContact:req.body.userContact
+        }
+    ).then((result)=>{
+        res.send('Information Updated')
+    }).catch((error)=>{
+        res.send(error)
+    });
+})
 
 
 

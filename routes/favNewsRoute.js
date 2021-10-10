@@ -52,6 +52,7 @@ routerr.post('/getFavNews',async(req,res)=>{
 
 routerr.post('/deleteFavNews',async(req,res)=>{
     var docId = req.body.docId;
+    console.log(docId);
     /*try{*/
         var deleteDoc = favNewsModel.findByIdAndDelete({
             _id:req.body.docId,
